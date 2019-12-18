@@ -1,4 +1,4 @@
-namespace Operations
+namespace Nubank.Authorizer.Operations
 {
     public interface IOperation
     {

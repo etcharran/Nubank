@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Nubank.Authorizer.Logic;
+using Nubank.Authorizer.Operations;
 
 namespace Nubank.Authorizer
 {
@@ -6,12 +10,28 @@ namespace Nubank.Authorizer
     {
         static void Main(string[] args)
         {
-            
-            Console.WriteLine(Console.ReadLine());
-            Console.WriteLine("Hello World!");
-            foreach(var arg in args){
-                Console.WriteLine(arg);
-            }
+            CreateHostBuilder(args).Build().Run();
         }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) => 
+            Host.CreateDefaultBuilder(args)
+            .ConfigureLogging(logging =>
+            {
+                logging.ClearProviders();
+                logging.AddConsole();
+            })
+            .ConfigureServices((hostContext, services) =>
+            {
+                #region IOperations
+                // This factory generates the accountCreation and the Transaction as IOperations
+                services.AddSingleton<IOperationFactory, OperationFactory>();
+                services.AddTransient<AccountCreation>();
+                services.AddTransient<Transaction>();
+                #endregion
+
+                services.AddTransient<IOperationLogic, OperationLogic>();
+                services.AddHostedService<ConsoleApplication>();
+            });
+
     }
 }

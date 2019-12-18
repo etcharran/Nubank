@@ -1,4 +1,4 @@
-namespace Operations
+namespace Nubank.Authorizer.Operations
 {
     public class AccountCreation : IOperation
     {

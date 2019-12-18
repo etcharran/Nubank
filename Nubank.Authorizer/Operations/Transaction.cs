@@ -1,6 +1,6 @@
 using System;
 
-namespace Operations
+namespace Nubank.Authorizer.Operations
 {
     public class Transaction : IOperation
     {

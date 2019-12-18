@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Nubank.Authorizer": {
+      "commandName": "Project",
+      "commandLineArgs": "< test.json"
+    }
+  }
+}
