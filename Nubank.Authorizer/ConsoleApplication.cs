@@ -12,25 +12,32 @@ namespace Nubank.Authorizer
     public class ConsoleApplication : IHostedService
     {
         private readonly IOperationLogic operationLogic;
-        public ConsoleApplication(IOperationLogic operationLogic)
+        private readonly IHostApplicationLifetime appLifetime;
+        public ConsoleApplication(IOperationLogic operationLogic, IHostApplicationLifetime appLifetime)
         {
             this.operationLogic = operationLogic;
+            this.appLifetime = appLifetime;
         }
 
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            string line;
-            while(!string.IsNullOrEmpty(line = Console.ReadLine()))
+            var response = Task.CompletedTask;
+            response.ContinueWith((task) =>
             {
-                // Parseo el documento que me llega como string a json
-                var document = JsonDocument.Parse(line);
+                string line;
+                while (!string.IsNullOrEmpty(line = Console.ReadLine()))
+                {
+                    // Parseo el documento que me llega como string a json
+                    var document = JsonDocument.Parse(line);
 
-                // Cada línea es una operación. Por lo tanto, opero
-                operationLogic.Operate(document);
-            }
+                    // Cada línea es una operación. Por lo tanto, opero
+                    operationLogic.Operate(document);
+                }
 
-            return Task.CompletedTask;
+            }).ContinueWith((task) => appLifetime.StopApplication());
+
+            return response;
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
