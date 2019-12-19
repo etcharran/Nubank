@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace Nubank.Authorizer.Operations
+namespace Nubank.Domain.Operations
 {
     public class OperationFactory : IOperationFactory
     {

@@ -1,4 +1,4 @@
-namespace Nubank.Authorizer.Operations
+namespace Nubank.Domain.Operations
 {
     public class AccountCreation : IOperation
     {
@@ -9,7 +9,7 @@ namespace Nubank.Authorizer.Operations
 
         public void Process()
         {
-            throw new System.NotImplementedException();
+            // throw new System.NotImplementedException();
         }
     }
 }

@@ -1,8 +1,8 @@
 using Microsoft.Extensions.Logging;
-using Nubank.Authorizer.Operations;
+using Nubank.Domain.Operations;
 using System.Text.Json;
 
-namespace Nubank.Authorizer.Logic
+namespace Nubank.Domain.Logic
 {
     public class OperationLogic: IOperationLogic
     {

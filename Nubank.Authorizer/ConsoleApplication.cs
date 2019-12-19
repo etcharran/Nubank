@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Hosting;
-using Nubank.Authorizer.Logic;
+using Nubank.Domain.Logic;
 using System;
 using System.Text.Json;
 using System.Threading;
@@ -20,7 +20,18 @@ namespace Nubank.Authorizer
         public Task StartAsync(CancellationToken cancellationToken)
         {
             var response = Task.CompletedTask;
-            response.ContinueWith((task) =>
+
+            // Once the Application host has started, the process is launched.
+            response.ContinueWith(DoWork())
+            // Once the process has finished the application host has to be stopped.
+            .ContinueWith((task) => appLifetime.StopApplication());
+
+            return response;
+        }
+
+        private Action<Task> DoWork()
+        {
+            return (task) =>
             {
                 string line;
                 while (!string.IsNullOrEmpty(line = Console.ReadLine()))
@@ -32,9 +43,7 @@ namespace Nubank.Authorizer
                     operationLogic.Operate(document);
                 }
 
-            }).ContinueWith((task) => appLifetime.StopApplication());
-
-            return response;
+            };
         }
 
         public Task StopAsync(CancellationToken cancellationToken)

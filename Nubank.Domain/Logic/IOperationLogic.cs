@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace Nubank.Authorizer.Logic
+namespace Nubank.Domain.Logic
 {
     public interface IOperationLogic
     {

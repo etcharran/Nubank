@@ -2,8 +2,8 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Nubank.Authorizer.Helpers;
-using Nubank.Authorizer.Logic;
-using Nubank.Authorizer.Operations;
+using Nubank.Domain.Logic;
+using Nubank.Domain.Operations;
 
 namespace Nubank.Authorizer
 {

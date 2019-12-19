@@ -1,6 +1,6 @@
 using System;
 
-namespace Nubank.Authorizer.Operations
+namespace Nubank.Domain.Operations
 {
     public class Transaction : IOperation
     {
@@ -12,7 +12,7 @@ namespace Nubank.Authorizer.Operations
 
         public void Process()
         {
-            throw new System.NotImplementedException();
+            // throw new System.NotImplementedException();
         }
     }
 }
