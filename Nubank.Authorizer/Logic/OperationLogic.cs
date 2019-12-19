@@ -9,7 +9,7 @@ namespace Nubank.Authorizer.Logic
         private readonly ILogger logger;
         private readonly IOperationFactory operationFactory;
 
-        public OperationLogic(ILogger<OperationLogic> logger, IOperationFactory operationFactory)
+        public OperationLogic(ILogger logger, IOperationFactory operationFactory)
         {
             this.operationFactory = operationFactory;
             this.logger = logger;

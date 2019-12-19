@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Nubank.Authorizer.Logic;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,7 +16,6 @@ namespace Nubank.Authorizer
             this.operationLogic = operationLogic;
             this.appLifetime = appLifetime;
         }
-
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
