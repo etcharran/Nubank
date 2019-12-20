@@ -1,10 +1,11 @@
 using Microsoft.Extensions.Logging;
+using Nubank.Contract;
 using Nubank.Domain.Operations;
 using System.Text.Json;
 
 namespace Nubank.Domain.Logic
 {
-    public class OperationLogic: IOperationLogic
+    public class OperationLogic : IOperationLogic
     {
         private readonly ILogger logger;
         private readonly IOperationFactory operationFactory;
@@ -15,17 +16,10 @@ namespace Nubank.Domain.Logic
             this.logger = logger;
         }
 
-        public void Operate(JsonDocument operation)
+        public void Operate(IData operation)
         {
-            var iterator = operation.RootElement.EnumerateObject();
-
-            while (iterator.MoveNext())
-            {
-                string operationName = iterator.Current.Name;
-                logger.LogInformation(operationName);
-
-                operationFactory.CreateOperation(operationName).Process();
-            }
+            operationFactory.CreateOperation(operation)
+                .Process();
         }
     }
 }

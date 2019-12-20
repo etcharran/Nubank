@@ -9,4 +9,9 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Nubank.Contract\Nubank.Contract.csproj" />
+    <ProjectReference Include="..\Nubank.Tools\Nubank.Tools.csproj" />
+  </ItemGroup>
+
 </Project>

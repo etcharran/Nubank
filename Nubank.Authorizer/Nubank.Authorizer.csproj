@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Nubank.Domain\Nubank.Domain.csproj" />
+    <ProjectReference Include="..\Nubank.Contract\Nubank.Contract.csproj" />
   </ItemGroup>
 
 </Project>

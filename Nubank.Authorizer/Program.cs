@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Nubank.Authorizer.Helpers;
+using Nubank.Contract;
 using Nubank.Domain.Logic;
 using Nubank.Domain.Operations;
 
@@ -22,11 +23,11 @@ namespace Nubank.Authorizer
                 #region IOperations
                 // This factory generates the accountCreation and the Transaction as IOperations
                 services.AddSingleton<IOperationFactory, OperationFactory>();
-                services.AddTransient<IOperation, AccountCreation>();
-                services.AddTransient<IOperation, Transaction>();
+                services.AddScoped<IOperation<Account>, AccountOperation>();
+                services.AddScoped<IOperation<Transaction>, TransactionOperation>();
                 #endregion
 
-                services.AddTransient<IOperationLogic, OperationLogic>();
+                services.AddScoped<IOperationLogic, OperationLogic>();
                 services.AddHostedService<ConsoleApplication>();
             });
 

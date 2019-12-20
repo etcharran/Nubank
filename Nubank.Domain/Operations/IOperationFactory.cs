@@ -1,7 +1,10 @@
-﻿namespace Nubank.Domain.Operations
+﻿using Nubank.Contract;
+using System;
+
+namespace Nubank.Domain.Operations
 {
     public interface IOperationFactory
     {
-        IOperation CreateOperation(string operationName);
+        IOperation CreateOperation(IData data);
     }
 }

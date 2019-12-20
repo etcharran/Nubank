@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Hosting;
+using Nubank.Contract;
 using Nubank.Domain.Logic;
 using System;
 using System.Text.Json;
@@ -36,11 +37,10 @@ namespace Nubank.Authorizer
                 string line;
                 while (!string.IsNullOrEmpty(line = Console.ReadLine()))
                 {
-                    // Parseo el documento que me llega como string a json
-                    var document = JsonDocument.Parse(line);
+                    IData data = JsonContractFactory.ToContract(line);
 
                     // Cada línea es una operación. Por lo tanto, opero
-                    operationLogic.Operate(document);
+                    operationLogic.Operate(data);
                 }
 
             };

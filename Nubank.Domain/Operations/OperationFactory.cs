@@ -1,6 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Nubank.Contract;
+using Nubank.Tools;
 using System;
 using System.Linq;
+using System.Reflection;
 
 namespace Nubank.Domain.Operations
 {
@@ -12,11 +15,17 @@ namespace Nubank.Domain.Operations
             this.serviceProvider = serviceProvider;
         }
 
-        public IOperation CreateOperation(string operationName)
+        public IOperation CreateOperation(IData data) 
         {
-            var operations = serviceProvider.GetServices<IOperation>();
-
-            return operations.FirstOrDefault(o => o.Name == operationName);
+            switch (data.Name)
+            {
+                case "account":
+                    return serviceProvider.GetService<IOperation<Account>>().Build(data as Account) as IOperation;
+                case "transaction":
+                    return serviceProvider.GetService<IOperation<Transaction>>().Build(data as Transaction) as IOperation;
+                default:
+                    throw new Exception("Operation not supported");
+            }
         }
     }
 }

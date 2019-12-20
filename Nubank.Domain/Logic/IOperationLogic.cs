@@ -1,9 +1,9 @@
-using System.Text.Json;
+using Nubank.Contract;
 
 namespace Nubank.Domain.Logic
 {
     public interface IOperationLogic
     {
-        void Operate(JsonDocument operation);
+        void Operate(IData operation);
     }
 }
