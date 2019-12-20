@@ -18,8 +18,7 @@ namespace Nubank.Domain.Logic
 
         public void Operate(IData operation)
         {
-            operationFactory.CreateOperation(operation)
-                .Process();
+            operationFactory.CreateOperation(operation).Process();
         }
     }
 }

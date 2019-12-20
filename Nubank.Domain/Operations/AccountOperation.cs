@@ -3,7 +3,7 @@ using Nubank.Contract;
 
 namespace Nubank.Domain.Operations
 {
-    public class AccountOperation : Operation<Account>, IOperation, IOperation<Account>
+    public class AccountOperation : Operation<Account>, IOperation<Account>
     {
         private readonly ILogger logger;
         public AccountOperation(ILogger logger) {

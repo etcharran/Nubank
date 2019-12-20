@@ -4,7 +4,7 @@ using Nubank.Contract;
 
 namespace Nubank.Domain.Operations
 {
-    public class TransactionOperation : Operation<Transaction>, IOperation, IOperation<Transaction>
+    public class TransactionOperation : Operation<Transaction>, IOperation<Transaction>
     {
         private readonly ILogger logger;
         public TransactionOperation(ILogger logger) {
