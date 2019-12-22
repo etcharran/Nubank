@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Nubank.Domain.Operations
 {
-    public abstract class Operation<T> : IOperation, IOperation<T> where T:IData
+    public abstract class Operation<T> : IOperation<T> where T:IData
     {
         public T Data { get; set; }
 

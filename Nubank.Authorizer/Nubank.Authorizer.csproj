@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Nubank.Domain\Nubank.Domain.csproj" />
     <ProjectReference Include="..\Nubank.Contract\Nubank.Contract.csproj" />
+    <ProjectReference Include="..\Nubank.Persistence\Nubank.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 namespace Nubank.Contract
 {
-    public class Account: Data
+    public class Account : Data
     {
         public const string name = "account";
 
@@ -8,5 +8,10 @@ namespace Nubank.Contract
         public int AvailableLimit { get; set; }
 
         public override string Name => name;
+
+        public Account Copy()
+        {
+            return new Account { ActiveCard = ActiveCard, AvailableLimit = AvailableLimit };
+        }
     }
 }

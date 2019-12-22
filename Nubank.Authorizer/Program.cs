@@ -5,6 +5,8 @@ using Nubank.Authorizer.Helpers;
 using Nubank.Contract;
 using Nubank.Domain.Logic;
 using Nubank.Domain.Operations;
+using Nubank.Persistence;
+using Nubank.Persistence.Repositories;
 
 namespace Nubank.Authorizer
 {
@@ -25,9 +27,13 @@ namespace Nubank.Authorizer
                 services.AddSingleton<IOperationFactory, OperationFactory>();
                 services.AddScoped<IOperation<Account>, AccountOperation>();
                 services.AddScoped<IOperation<Transaction>, TransactionOperation>();
+                services.AddScoped<IOperationLogic, OperationLogic>();
                 #endregion
 
-                services.AddScoped<IOperationLogic, OperationLogic>();
+                #region Persistence
+                services.AddSingleton<IRepository<Account>, AccountRepository>();
+                #endregion
+
                 services.AddHostedService<ConsoleApplication>();
             });
 
