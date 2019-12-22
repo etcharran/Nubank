@@ -9,7 +9,7 @@ namespace Nubank.Persistence.Repositories
 
         public Account Get()
         {
-            return Account != null ? Account.Copy() : null;
+            return Account != null ? Account.Clone() : null;
         }
         
         public void Create(Account data)
@@ -25,6 +25,11 @@ namespace Nubank.Persistence.Repositories
         public void Update(Account data)
         {
             Account = data;
+        }
+
+        public Account[] GetAll()
+        {
+            return new Account[] { Account.Clone() };
         }
     }
 }

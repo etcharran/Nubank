@@ -1,6 +1,6 @@
 namespace Nubank.Contract
 {
-    public class Transaction: Data
+    public class Transaction: Data, ICLonable<Transaction>
     {
         public const string name = "transaction";
 
@@ -8,5 +8,10 @@ namespace Nubank.Contract
         public int Amount { get; set; }
 
         public override string Name => name;
+
+        public Transaction Clone()
+        {
+            return new Transaction { Amount = Amount, Merchant = Merchant};
+        }
     }
 }

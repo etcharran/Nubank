@@ -1,6 +1,6 @@
 namespace Nubank.Contract
 {
-    public class Account : Data
+    public class Account : Data, ICLonable<Account>
     {
         public const string name = "account";
 
@@ -9,7 +9,7 @@ namespace Nubank.Contract
 
         public override string Name => name;
 
-        public Account Copy()
+        public Account Clone()
         {
             return new Account { ActiveCard = ActiveCard, AvailableLimit = AvailableLimit };
         }
