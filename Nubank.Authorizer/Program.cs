@@ -32,6 +32,7 @@ namespace Nubank.Authorizer
 
                 #region Persistence
                 services.AddSingleton<IRepository<Account>, AccountRepository>();
+                services.AddSingleton<IRepository<Transaction>, TransactionRepository>();
                 #endregion
 
                 services.AddHostedService<ConsoleApplication>();

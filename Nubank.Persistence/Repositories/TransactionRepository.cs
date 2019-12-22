@@ -1,12 +1,14 @@
+using System.Collections.Generic;
 using Nubank.Contract;
 
 namespace Nubank.Persistence.Repositories
 {
     public class TransactionRepository : IRepository<Transaction>
     {
+        private List<Transaction> Transactions { get; set; }
         public void Create(Transaction data)
         {
-            throw new System.NotImplementedException();
+            Transactions.Add(data);
         }
 
         public void Delete(Transaction data)
@@ -21,7 +23,7 @@ namespace Nubank.Persistence.Repositories
 
         public Transaction[] GetAll()
         {
-            throw new System.NotImplementedException();
+            return Transactions.ToArray();
         }
 
         public void Update(Transaction data)
