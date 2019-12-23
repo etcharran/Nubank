@@ -1,6 +1,6 @@
 namespace Nubank.Contract
 {
-    public interface ICLonable<T> where T:IData
+    public interface ICLonable<T>
     {
         T Clone();
     }

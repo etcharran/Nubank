@@ -1,34 +1,20 @@
 using System.Collections.Generic;
+using System.Linq;
 using Nubank.Contract;
 
 namespace Nubank.Persistence.Repositories
 {
-    public class TransactionRepository : IRepository<Transaction>
+    public class TransactionRepository : ITransactionRepository
     {
         private List<Transaction> Transactions { get; set; }
         public void Create(Transaction data)
         {
-            Transactions.Add(data);
+            Transactions.Add(data.Clone());
         }
 
-        public void Delete(Transaction data)
+        public IList<Transaction> GetAll()
         {
-            throw new System.NotImplementedException();
-        }
-
-        public Transaction Get()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Transaction[] GetAll()
-        {
-            return Transactions.ToArray();
-        }
-
-        public void Update(Transaction data)
-        {
-            throw new System.NotImplementedException();
+            return Transactions.Select(d => d.Clone()).ToList();
         }
     }
 }

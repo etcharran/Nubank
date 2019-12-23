@@ -1,15 +1,16 @@
 using Microsoft.Extensions.Logging;
 using Nubank.Contract;
 using Nubank.Persistence;
+using Nubank.Persistence.Repositories;
 
 namespace Nubank.Domain.Operations
 {
     public class AccountOperation : Operation<Account>
     {
         private readonly ILogger logger;
-        private readonly IRepository<Account> repository;
+        private readonly IAccountRepository repository;
 
-        public AccountOperation(ILogger logger, IRepository<Account> repository) {
+        public AccountOperation(ILogger logger, IAccountRepository repository) {
             this.logger = logger;
             this.repository = repository;
         }

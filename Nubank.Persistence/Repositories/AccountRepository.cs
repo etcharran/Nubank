@@ -2,7 +2,7 @@
 
 namespace Nubank.Persistence.Repositories
 {
-    public class AccountRepository : IRepository<Account>
+    public class AccountRepository : IAccountRepository
     {
         // It only has one account, beacuse the requirement only specifies one 
         private Account Account { get; set; }
@@ -11,10 +11,10 @@ namespace Nubank.Persistence.Repositories
         {
             return Account != null ? Account.Clone() : null;
         }
-        
+
         public void Create(Account data)
         {
-            Account = data;
+            Account = data.Clone();
         }
 
         public void Delete(Account data)
@@ -24,12 +24,7 @@ namespace Nubank.Persistence.Repositories
 
         public void Update(Account data)
         {
-            Account = data;
-        }
-
-        public Account[] GetAll()
-        {
-            return new Account[] { Account.Clone() };
+            Account = data.Clone();
         }
     }
 }
