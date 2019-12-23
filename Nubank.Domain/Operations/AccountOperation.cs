@@ -1,6 +1,7 @@
+using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Nubank.Contract;
-using Nubank.Persistence;
+using Nubank.Domain.Validation;
 using Nubank.Persistence.Repositories;
 
 namespace Nubank.Domain.Operations
@@ -14,6 +15,7 @@ namespace Nubank.Domain.Operations
             this.logger = logger;
             this.repository = repository;
         }
+        public override List<IBusinessValidation> ValidationFixture { get; set; }
 
         public override void Execute()
         {

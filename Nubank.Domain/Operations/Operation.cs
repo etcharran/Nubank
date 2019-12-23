@@ -1,4 +1,5 @@
 ﻿using Nubank.Contract;
+using Nubank.Domain.Validation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,11 +21,18 @@ namespace Nubank.Domain.Operations
 
         public void Process() 
         {
-            if (this.HasBeenBuilt)
+            if (this.HasBeenBuilt){
+                foreach (var validation in ValidationFixture)
+                {
+                    validation.Validate();
+                }
                 this.Execute();
+            }
             else
                 throw new Exception("The process hasn't been built yet");
         }
+
+        public abstract List<IBusinessValidation> ValidationFixture { get; set; }
 
         public abstract void Execute();
     }
