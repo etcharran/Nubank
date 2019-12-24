@@ -1,6 +1,6 @@
 namespace Nubank.Contract
 {
-    public class Account : Data, ICLonable<Account>
+    public class Account : Data, IClonable<Account>
     {
         public const string name = "account";
 

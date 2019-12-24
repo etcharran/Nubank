@@ -2,7 +2,7 @@ using System;
 
 namespace Nubank.Contract
 {
-    public class Transaction : Data, ICLonable<Transaction>
+    public class Transaction : Data, IClonable<Transaction>
     {
         public const string name = "transaction";
 
