@@ -31,21 +31,28 @@ namespace Nubank.Domain.Operations
         {
             if (this.HasBeenBuilt)
             {
-                var isValid = true;
-                List<string> violetions = new List<string>();
-                foreach (var validation in ValidationFixture)
+                try
                 {
-                    var validationResponse = validation.Validate(Data);
-                    if (!validationResponse.Success)
+                    var isValid = true;
+                    List<string> violetions = new List<string>();
+                    foreach (var validation in ValidationFixture)
                     {
-                        isValid = false;
-                        violetions.Add(validationResponse.Validation);
+                        var validationResponse = validation.Validate(Data);
+                        if (!validationResponse.Success)
+                        {
+                            isValid = false;
+                            violetions.Add(validationResponse.Validation);
+                        }
                     }
-                }
-                if (isValid)
-                    this.Execute();
+                    if (isValid)
+                        this.Execute();
 
-                return new AccountResponse { Account = accountRepository.Get(), Violations = violetions };
+                    return new AccountResponse { Account = accountRepository.Get(), Violations = violetions };
+                }
+                catch (System.Exception ex)
+                {
+                    throw new Exception($"Error trying to process the operation: { Data.Name }", ex);
+                }
             }
             else
                 throw new Exception("The process hasn't been built yet");

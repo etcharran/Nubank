@@ -37,16 +37,24 @@ namespace Nubank.Authorizer
         {
             return (task) =>
             {
-                string line;
-                while (!string.IsNullOrEmpty(line = Console.ReadLine()))
+                try
                 {
-                    IData data = JsonHelper.ToContract(line);
+                    string line;
+                    while (!string.IsNullOrEmpty(line = Console.ReadLine()))
+                    {
+                        IData data = JsonHelper.ToContract(line);
 
-                    // Each line is an operation, hence we operate
-                    var responseOperation = operationLogic.Operate(data);
+                        // Each line is an operation, hence we operate
+                        var responseOperation = operationLogic.Operate(data);
 
-                    // Log response as string
-                    logger.LogInformation(JsonHelper.Serialize(responseOperation));
+                        // Log response as string
+                        logger.LogInformation(JsonHelper.Serialize(responseOperation));
+
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    logger.LogError(ex, ex.Message);
                 }
 
             };

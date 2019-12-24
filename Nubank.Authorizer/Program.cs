@@ -30,7 +30,7 @@ namespace Nubank.Authorizer
                 #endregion
 
                 #region Persistence
-                services.AddSingleton<IAccountRepository, AccountRepository>();
+                services.AddSingleton<IAccountRepository, SingleAccountRepository>();
                 services.AddSingleton<ITransactionRepository, TransactionRepository>();
                 #endregion
                 services.Configure<ConsoleLifetimeOptions>(options => options.SuppressStatusMessages = true);

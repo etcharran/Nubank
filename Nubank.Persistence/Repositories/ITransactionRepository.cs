@@ -3,9 +3,21 @@ using System.Collections.Generic;
 
 namespace Nubank.Persistence.Repositories
 {
+    /// <summary>
+    /// Manages transactions
+    /// </summary>
     public interface ITransactionRepository
     {
-        void Create(Transaction data);
+        /// <summary>
+        /// Create a transaction
+        /// </summary>
+        /// <param name="data"></param>
+        void Create(Transaction data); 
+
+        /// <summary>
+        /// Retrieves all transactions
+        /// </summary>
+        /// <returns></returns>
         IList<Transaction> GetAll();
     }
 }
