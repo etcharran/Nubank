@@ -1,0 +1,4 @@
+namespace Nubank.Tests.Integration
+{
+    
+}

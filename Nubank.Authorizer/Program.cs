@@ -9,7 +9,7 @@ using Nubank.Persistence.Repositories;
 
 namespace Nubank.Authorizer
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
