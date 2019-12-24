@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Logging;
 using Nubank.Contract;
 using Nubank.Domain.Operations;
 

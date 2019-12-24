@@ -13,4 +13,8 @@
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Nubank.Persistence\Nubank.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>

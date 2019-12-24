@@ -13,6 +13,6 @@ namespace Nubank.Domain.Validation
             this.accountRepository = accountRepository;
         }
 
-        public override bool IsValid(Account data) => accountRepository.Get() == null;
+        public override bool IsValid(Account data) => !accountRepository.Any();
     }
 }

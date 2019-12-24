@@ -14,15 +14,10 @@ namespace Nubank.Persistence.Repositories
         void Create(Account data);
 
         /// <summary>
-        /// Delete an Account
-        /// </summary>
-        /// <param name="data"></param>
-        void Delete(Account data);
-
-        /// <summary>
         /// Retrieves the last account created
         /// </summary>
         /// <returns></returns>
+        /// <exception cref="Nubank.Tools.Exceptions.NullAccountException">If there isn't one throws a nullaccount exeption</exception>
         Account Get();
 
         /// <summary>
@@ -30,5 +25,11 @@ namespace Nubank.Persistence.Repositories
         /// </summary>
         /// <param name="data"></param>
         void Update(Account data);
+
+        /// <summary>
+        /// Returns if any account exists
+        /// </summary>
+        /// <returns></returns>
+        bool Any();
     }
 }

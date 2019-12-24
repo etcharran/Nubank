@@ -2,7 +2,6 @@
 using Nubank.Domain.Validation;
 using Nubank.Persistence.Repositories;
 using Nubank.Tools.Exceptions;
-using System;
 using System.Collections.Generic;
 
 namespace Nubank.Domain.Operations
@@ -46,7 +45,7 @@ namespace Nubank.Domain.Operations
                 if (isValid)
                     this.Execute();
 
-                return new AccountResponse { Account = accountRepository.Get(), Violations = violetions };
+                return new AccountResponse { Account = accountRepository.Any() ? accountRepository.Get() : null, Violations = violetions };
             }
             else
                 throw new NonBuiltProcessException();

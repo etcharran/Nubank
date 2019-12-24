@@ -29,15 +29,6 @@ namespace Nubank.Persistence.Repositories
         }
 
         /// <summary>
-        /// Deletes the current account
-        /// </summary>
-        /// <param name="data"></param>
-        public void Delete(Account data)
-        {
-            Account = null;
-        }
-
-        /// <summary>
         /// Updates the current account
         /// </summary>
         /// <param name="data"></param>
@@ -45,5 +36,7 @@ namespace Nubank.Persistence.Repositories
         {
             Account = data.Clone();
         }
+
+        public bool Any() => Account != null;
     }
 }

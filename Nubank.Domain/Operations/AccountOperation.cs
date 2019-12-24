@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Logging;
 using Nubank.Contract;
 using Nubank.Domain.Validation;
 using Nubank.Persistence.Repositories;
@@ -7,7 +6,7 @@ namespace Nubank.Domain.Operations
 {
     public class AccountOperation : Operation<Account>
     {
-        public AccountOperation(IAccountRepository accountRepository) 
+        public AccountOperation(IAccountRepository accountRepository)
             : base(accountRepository)
         {
         }
