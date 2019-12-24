@@ -108,3 +108,7 @@ Once all validations have passed, then the operation executes.
 This layer core logic is located in the Operation class.
 
 ## Persistence
+The persistence layer has two repositorios one for each knwon Operation.
+- AccountRepository
+- TransactionRepository
+This implementations handle the memory persistence. 
