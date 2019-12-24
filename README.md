@@ -93,3 +93,18 @@ The solution has many layers with different objectives:
 This projects handles the input and output of the program, the serialization and deserialization of json and implements the dependency injection pattern on the Program.cs
 
 To gain all of the net core di power the program raises a host which handles the injection and execution.
+
+## Domain
+The domain has 3 different core structures:
+- Logic
+- Operation 
+- BusinessValidations
+
+The program understands each json row as an operation.
+Each operation executes a process. 
+To execute a process, first it provides a way to build itself and then executes some validations. 
+Once all validations have passed, then the operation executes. 
+
+This layer core logic is located in the Operation class.
+
+## Persistence
