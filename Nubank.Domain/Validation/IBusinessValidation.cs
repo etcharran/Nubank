@@ -11,7 +11,7 @@ namespace Nubank.Domain.Validation
         /// <summary>
         /// Validation Name
         /// </summary>
-        string ValidationName { get; } 
+        string ValidationName { get; }
 
         /// <summary>
         /// Actual Validation

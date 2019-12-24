@@ -7,17 +7,14 @@ namespace Nubank.Domain.Operations
 {
     public class AccountOperation : Operation<Account>
     {
-        private readonly ILogger logger;
-
-        public AccountOperation(ILogger logger, IAccountRepository repository)
-            : base(repository)
+        public AccountOperation(IAccountRepository accountRepository) 
+            : base(accountRepository)
         {
-            this.logger = logger;
         }
 
         public override void InitializeFixture()
         {
-            ValidationFixture.Add(new InitializedAccountValidation(accountRepository) as IBusinessValidation<Account>);
+            ValidationFixture.Add(new InitializedAccountValidation(accountRepository));
         }
 
         public override void Execute() => accountRepository.Create(Data);

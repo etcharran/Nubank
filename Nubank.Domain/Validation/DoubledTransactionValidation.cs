@@ -1,6 +1,5 @@
 ﻿using Nubank.Contract;
 using Nubank.Persistence.Repositories;
-using System;
 using System.Linq;
 
 namespace Nubank.Domain.Validation
@@ -32,6 +31,6 @@ namespace Nubank.Domain.Validation
             return true;
         }
 
-        
+
     }
 }

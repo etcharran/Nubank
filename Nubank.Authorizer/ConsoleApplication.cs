@@ -21,6 +21,11 @@ namespace Nubank.Authorizer
             this.logger = logger;
         }
 
+        /// <summary>
+        /// Initialize Host
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public Task StartAsync(CancellationToken cancellationToken)
         {
             var response = Task.CompletedTask;
@@ -33,6 +38,10 @@ namespace Nubank.Authorizer
             return response;
         }
 
+        /// <summary>
+        /// Work to do after Host is Initialized
+        /// </summary>
+        /// <returns></returns>
         private Action<Task> DoWork()
         {
             return (task) =>
@@ -60,6 +69,11 @@ namespace Nubank.Authorizer
             };
         }
 
+        /// <summary>
+        /// Task to Execute when stopping the host
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public Task StopAsync(CancellationToken cancellationToken)
         {
             return Task.CompletedTask;

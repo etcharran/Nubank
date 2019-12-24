@@ -12,6 +12,11 @@ namespace Nubank.Domain.Operations
             this.serviceProvider = serviceProvider;
         }
 
+        /// <summary>
+        /// Retrieve an operation matching the data type and build it
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public IOperation CreateOperation(IData data)
         {
             switch (data.Name)

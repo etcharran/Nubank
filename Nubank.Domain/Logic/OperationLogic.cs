@@ -6,13 +6,11 @@ namespace Nubank.Domain.Logic
 {
     public class OperationLogic : IOperationLogic
     {
-        private readonly ILogger logger;
         private readonly IOperationFactory operationFactory;
 
-        public OperationLogic(ILogger logger, IOperationFactory operationFactory)
+        public OperationLogic(IOperationFactory operationFactory)
         {
             this.operationFactory = operationFactory;
-            this.logger = logger;
         }
 
         public IResponse<Account> Operate(IData operation)

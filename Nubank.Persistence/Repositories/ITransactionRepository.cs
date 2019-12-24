@@ -12,7 +12,7 @@ namespace Nubank.Persistence.Repositories
         /// Create a transaction
         /// </summary>
         /// <param name="data"></param>
-        void Create(Transaction data); 
+        void Create(Transaction data);
 
         /// <summary>
         /// Retrieves all transactions

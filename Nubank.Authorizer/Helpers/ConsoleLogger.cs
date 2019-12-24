@@ -3,6 +3,9 @@ using System;
 
 namespace Nubank.Authorizer.Helpers
 {
+    /// <summary>
+    /// Console Logger (StdIn, StdOut)
+    /// </summary>
     public class ConsoleLogger : ILogger
     {
         public ConsoleLogger() { }

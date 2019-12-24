@@ -3,7 +3,6 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using Nubank.Contract;
 using System.Linq;
-using System.Text.Json;
 
 namespace Nubank.Authorizer.Helpers
 {
@@ -21,11 +20,11 @@ namespace Nubank.Authorizer.Helpers
             try
             {
                 var jObject = JObject.Parse(document);
-               
+
                 // Get DataType by the name matched from the json document's first key
                 var dataType = ReflectionHelper.GetAllImplementations<IData>()
                         .Where(d => (string)d.GetField("name").GetValue(null) == jObject.First.Path).First();
-                
+
                 var settings = new JsonSerializerSettings
                 {
                     ContractResolver = new DefaultContractResolver { NamingStrategy = new CamelCaseNamingStrategy() }
@@ -40,6 +39,11 @@ namespace Nubank.Authorizer.Helpers
             }
         }
 
+        /// <summary>
+        /// Serialize the response through the ToResponseFormat
+        /// </summary>
+        /// <param name="response"></param>
+        /// <returns></returns>
         internal static string Serialize(IResponse<Account> response)
         {
             return JsonConvert.SerializeObject(response.ToResposeFormat(), new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });

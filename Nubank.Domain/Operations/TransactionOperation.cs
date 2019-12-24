@@ -8,11 +8,9 @@ namespace Nubank.Domain.Operations
     public class TransactionOperation : Operation<Transaction>
     {
         private readonly ITransactionRepository transactionRepository;
-        private readonly ILogger logger;
-        public TransactionOperation(ILogger logger, IAccountRepository accountRepository, ITransactionRepository transactionRepository)
+        public TransactionOperation(IAccountRepository accountRepository, ITransactionRepository transactionRepository)
             : base(accountRepository)
         {
-            this.logger = logger;
             this.transactionRepository = transactionRepository;
         }
 

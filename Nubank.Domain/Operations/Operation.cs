@@ -60,7 +60,14 @@ namespace Nubank.Domain.Operations
 
         public IList<IBusinessValidation<T>> ValidationFixture { get; set; }
 
+        /// <summary>
+        /// Executes the actual operation
+        /// </summary>
         public abstract void Execute();
+
+        /// <summary>
+        /// Initialize Validation Fixture
+        /// </summary>
         public abstract void InitializeFixture();
     }
 }

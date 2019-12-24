@@ -4,6 +4,11 @@ namespace Nubank.Domain.Operations
 {
     public interface IOperationFactory
     {
+        /// <summary>
+        /// Creates an operation
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         IOperation CreateOperation(IData data);
     }
 }
