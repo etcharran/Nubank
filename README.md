@@ -30,7 +30,7 @@ sudo apt-get update
 sudo apt-get install dotnet-runtime-3.1
 ```
 
-## Mac Installer
+## Mac Installation
 
 ### SDK
 Link to installer: [https://dotnet.microsoft.com/download/dotnet-core/thank-you/sdk-3.1.100-macos-x64-installer](https://dotnet.microsoft.com/download/dotnet-core/thank-you/sdk-3.1.100-macos-x64-installer)
