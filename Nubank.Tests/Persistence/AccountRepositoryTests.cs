@@ -43,7 +43,7 @@ namespace Nubank.Tests.Persitence
         public void CreateAccount(Account active, Account inactive)
         {
             accountRepository.Create(active);
-            Assert.True(!accountRepository.Any());
+            Assert.True(accountRepository.Any());
             Assert.Equal(active, accountRepository.Get(), new AccountComparer());
             accountRepository.Create(inactive);
             Assert.NotEqual(active, accountRepository.Get(), new AccountComparer());
@@ -55,7 +55,7 @@ namespace Nubank.Tests.Persitence
         public void UpdateAccount(Account active, Account inactive)
         {
             accountRepository.Create(active);
-            Assert.True(!accountRepository.Any());
+            Assert.True(accountRepository.Any());
             Assert.Equal(active, accountRepository.Get(), new AccountComparer());
             accountRepository.Update(inactive);
             Assert.NotEqual(active, accountRepository.Get(), new AccountComparer());
