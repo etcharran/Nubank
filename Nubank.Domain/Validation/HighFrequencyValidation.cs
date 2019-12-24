@@ -14,6 +14,21 @@ namespace Nubank.Domain.Validation
             this.transactionRepository = transactionRepository;
         }
 
-        public override bool IsValid(Transaction data) => transactionRepository.GetAll().Where(t => t.Time > data.Time.AddMinutes(-2)).Count() <= 2;
+
+        public override bool IsValid(Transaction data)
+        {
+            var transactions = transactionRepository.GetAll()
+                .Where(t => t.Time >= data.Time.AddMinutes(-2) && t.Time <= data.Time.AddMinutes(2)).ToList();
+
+            transactions.Add(data);
+
+            foreach (var transaction in transactions)
+            {
+                if (transactions.Where(t => t.Time <= transaction.Time.AddMinutes(2) && t.Time >= transaction.Time).Count() > 3)
+                    return false;
+            }
+
+            return true;
+        }
     }
 }

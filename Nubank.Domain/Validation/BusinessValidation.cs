@@ -8,6 +8,11 @@ namespace Nubank.Domain.Validation
 
         public ValidationResponse Validate(T data) => new ValidationResponse { Success = IsValid(data), Validation = ValidationName };
 
+        /// <summary>
+        /// Condition to be valid
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public abstract bool IsValid(T data);
     }
 }
