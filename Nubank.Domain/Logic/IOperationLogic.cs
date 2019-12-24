@@ -4,6 +4,6 @@ namespace Nubank.Domain.Logic
 {
     public interface IOperationLogic
     {
-        void Operate(IData operation);
+        IResponse<Account> Operate(IData operation);
     }
 }

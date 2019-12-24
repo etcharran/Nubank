@@ -1,35 +1,36 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Nubank.Contract;
 using Nubank.Domain.Validation;
-using Nubank.Persistence;
 using Nubank.Persistence.Repositories;
 
 namespace Nubank.Domain.Operations
 {
     public class TransactionOperation : Operation<Transaction>
     {
+        private readonly ITransactionRepository transactionRepository;
         private readonly ILogger logger;
-        private readonly IAccountRepository accountRepository;
-        public TransactionOperation(ILogger logger, IAccountRepository accountRepository) {
+        public TransactionOperation(ILogger logger, IAccountRepository accountRepository, ITransactionRepository transactionRepository)
+            : base(accountRepository)
+        {
             this.logger = logger;
-            this.accountRepository = accountRepository;
+            this.transactionRepository = transactionRepository;
         }
 
-        public override List<IBusinessValidation> ValidationFixture { get; set; }
 
         public override void Execute()
         {
+            transactionRepository.Create(Data);
             var account = accountRepository.Get();
+            account.AvailableLimit -= Data.Amount;
+            accountRepository.Update(account);
+        }
 
-            account.AvailableLimit -= 20;
-
-            logger.LogInformation($"temp account: {account.AvailableLimit}");
-
-            logger.LogInformation($"real account: {accountRepository.Get().AvailableLimit}");
-
-            logger.LogInformation($"Process Transaction. Amount: {Data.Amount}, Merchant: {Data.Merchant}");
+        public override void InitializeFixture()
+        {
+            ValidationFixture.Add(new InsufficientLimitValidation(accountRepository));
+            ValidationFixture.Add(new InactiveCardValidation(accountRepository));
+            ValidationFixture.Add(new HighFrequencyValidation(transactionRepository));
+            ValidationFixture.Add(new DoubledTransactionValidation(transactionRepository));
         }
     }
 }

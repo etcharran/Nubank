@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Nubank.Authorizer.Helpers;
 using Nubank.Contract;
 using Nubank.Domain.Logic;
 using System;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,10 +13,12 @@ namespace Nubank.Authorizer
     {
         private readonly IOperationLogic operationLogic;
         private readonly IHostApplicationLifetime appLifetime;
-        public ConsoleApplication(IOperationLogic operationLogic, IHostApplicationLifetime appLifetime)
+        private readonly ILogger logger;
+        public ConsoleApplication(IOperationLogic operationLogic, IHostApplicationLifetime appLifetime, ILogger logger)
         {
             this.operationLogic = operationLogic;
             this.appLifetime = appLifetime;
+            this.logger = logger;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -37,10 +40,13 @@ namespace Nubank.Authorizer
                 string line;
                 while (!string.IsNullOrEmpty(line = Console.ReadLine()))
                 {
-                    IData data = JsonContractFactory.ToContract(line);
+                    IData data = JsonHelper.ToContract(line);
 
-                    // Cada línea es una operación. Por lo tanto, opero
-                    operationLogic.Operate(data);
+                    // Each line is an operation, hence we operate
+                    var responseOperation = operationLogic.Operate(data);
+
+                    // Log response as string
+                    logger.LogInformation(JsonHelper.Serialize(responseOperation));
                 }
 
             };

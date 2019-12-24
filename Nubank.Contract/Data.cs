@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Nubank.Contract
+﻿namespace Nubank.Contract
 {
     public abstract class Data : IData
     {

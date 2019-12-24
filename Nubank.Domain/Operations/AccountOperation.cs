@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Nubank.Contract;
 using Nubank.Domain.Validation;
@@ -9,26 +8,18 @@ namespace Nubank.Domain.Operations
     public class AccountOperation : Operation<Account>
     {
         private readonly ILogger logger;
-        private readonly IAccountRepository repository;
 
-        public AccountOperation(ILogger logger, IAccountRepository repository) {
-            this.logger = logger;
-            this.repository = repository;
-        }
-        public override List<IBusinessValidation> ValidationFixture { get; set; }
-
-        public override void Execute()
+        public AccountOperation(ILogger logger, IAccountRepository repository)
+            : base(repository)
         {
-            if(repository.Get() == null) 
-            {
-                repository.Create(Data);
-            }
-            else
-            {
-                logger.LogError("There's already an account in the system");
-            }
-
-            logger.LogInformation($"Process Account. ActiveCard: {Data.ActiveCard}, AvailableLimit: {Data.AvailableLimit}");
+            this.logger = logger;
         }
+
+        public override void InitializeFixture()
+        {
+            ValidationFixture.Add(new InitializedAccountValidation(accountRepository) as IBusinessValidation<Account>);
+        }
+
+        public override void Execute() => accountRepository.Create(Data);
     }
 }

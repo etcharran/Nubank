@@ -1,7 +1,10 @@
+using Nubank.Contract;
+
 namespace Nubank.Domain.Validation
 {
-    public interface IBusinessValidation
+    public interface IBusinessValidation<T> where T : IData
     {
-        ValidationResponse Validate();
+        string ValidationName { get; }
+        ValidationResponse Validate(T data);
     }
 }

@@ -1,9 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Nubank.Contract;
-using Nubank.Tools;
 using System;
-using System.Linq;
-using System.Reflection;
 
 namespace Nubank.Domain.Operations
 {
@@ -15,7 +12,7 @@ namespace Nubank.Domain.Operations
             this.serviceProvider = serviceProvider;
         }
 
-        public IOperation CreateOperation(IData data) 
+        public IOperation CreateOperation(IData data)
         {
             switch (data.Name)
             {

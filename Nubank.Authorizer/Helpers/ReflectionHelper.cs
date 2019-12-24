@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Reflection;
 
-namespace Nubank.Tools
+namespace Nubank.Authorizer.Helpers
 {
-    public class ReflectionTools
+    public class ReflectionHelper
     {
         public static IQueryable<Type> GetAllImplementations<T>()
         {

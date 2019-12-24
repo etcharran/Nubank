@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Nubank.Contract;
+using System.Collections.Generic;
 
 namespace Nubank.Persistence.Repositories
 {

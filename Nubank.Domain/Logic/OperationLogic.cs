@@ -1,7 +1,6 @@
 using Microsoft.Extensions.Logging;
 using Nubank.Contract;
 using Nubank.Domain.Operations;
-using System.Text.Json;
 
 namespace Nubank.Domain.Logic
 {
@@ -16,9 +15,9 @@ namespace Nubank.Domain.Logic
             this.logger = logger;
         }
 
-        public void Operate(IData operation)
+        public IResponse<Account> Operate(IData operation)
         {
-            operationFactory.CreateOperation(operation).Process();
+            return operationFactory.CreateOperation(operation).Process();
         }
     }
 }

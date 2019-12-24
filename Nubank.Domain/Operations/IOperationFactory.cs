@@ -1,5 +1,4 @@
 ﻿using Nubank.Contract;
-using System;
 
 namespace Nubank.Domain.Operations
 {

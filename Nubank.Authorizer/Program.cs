@@ -5,7 +5,6 @@ using Nubank.Authorizer.Helpers;
 using Nubank.Contract;
 using Nubank.Domain.Logic;
 using Nubank.Domain.Operations;
-using Nubank.Persistence;
 using Nubank.Persistence.Repositories;
 
 namespace Nubank.Authorizer
@@ -17,7 +16,7 @@ namespace Nubank.Authorizer
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) => 
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
             .ConfigureServices((hostContext, services) =>
             {
@@ -25,8 +24,8 @@ namespace Nubank.Authorizer
                 #region IOperations
                 // This factory generates the accountCreation and the Transaction as IOperations
                 services.AddSingleton<IOperationFactory, OperationFactory>();
-                services.AddScoped<IOperation<Account>, AccountOperation>();
-                services.AddScoped<IOperation<Transaction>, TransactionOperation>();
+                services.AddTransient<IOperation<Account>, AccountOperation>();
+                services.AddTransient<IOperation<Transaction>, TransactionOperation>();
                 services.AddScoped<IOperationLogic, OperationLogic>();
                 #endregion
 
@@ -34,7 +33,7 @@ namespace Nubank.Authorizer
                 services.AddSingleton<IAccountRepository, AccountRepository>();
                 services.AddSingleton<ITransactionRepository, TransactionRepository>();
                 #endregion
-
+                services.Configure<ConsoleLifetimeOptions>(options => options.SuppressStatusMessages = true);
                 services.AddHostedService<ConsoleApplication>();
             });
 
