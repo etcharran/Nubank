@@ -24,15 +24,19 @@ namespace Nubank.Authorizer
                 #region IOperations
                 // This factory generates the accountCreation and the Transaction as IOperations
                 services.AddSingleton<IOperationFactory, OperationFactory>();
+                // For each received accountoperation, it generates a new operation
                 services.AddTransient<IOperation<Account>, AccountOperation>();
+                // For each received transactionoperation, it generates a new operation
                 services.AddTransient<IOperation<Transaction>, TransactionOperation>();
                 services.AddScoped<IOperationLogic, OperationLogic>();
                 #endregion
 
                 #region Persistence
+                // Always in memory for the whole execution of the program
                 services.AddSingleton<IAccountRepository, SingleAccountRepository>();
                 services.AddSingleton<ITransactionRepository, TransactionRepository>();
                 #endregion
+                
                 services.Configure<ConsoleLifetimeOptions>(options => options.SuppressStatusMessages = true);
                 services.AddHostedService<ConsoleApplication>();
             });
