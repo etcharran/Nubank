@@ -1,6 +1,7 @@
 ﻿using Nubank.Contract;
 using Nubank.Domain.Validation;
 using Nubank.Persistence.Repositories;
+using Nubank.Tools.Exceptions;
 using System;
 using System.Collections.Generic;
 
@@ -31,31 +32,24 @@ namespace Nubank.Domain.Operations
         {
             if (this.HasBeenBuilt)
             {
-                try
+                var isValid = true;
+                List<string> violetions = new List<string>();
+                foreach (var validation in ValidationFixture)
                 {
-                    var isValid = true;
-                    List<string> violetions = new List<string>();
-                    foreach (var validation in ValidationFixture)
+                    var validationResponse = validation.Validate(Data);
+                    if (!validationResponse.Success)
                     {
-                        var validationResponse = validation.Validate(Data);
-                        if (!validationResponse.Success)
-                        {
-                            isValid = false;
-                            violetions.Add(validationResponse.Validation);
-                        }
+                        isValid = false;
+                        violetions.Add(validationResponse.Validation);
                     }
-                    if (isValid)
-                        this.Execute();
+                }
+                if (isValid)
+                    this.Execute();
 
-                    return new AccountResponse { Account = accountRepository.Get(), Violations = violetions };
-                }
-                catch (System.Exception ex)
-                {
-                    throw new Exception($"Error trying to process the operation: { Data.Name }", ex);
-                }
+                return new AccountResponse { Account = accountRepository.Get(), Violations = violetions };
             }
             else
-                throw new Exception("The process hasn't been built yet");
+                throw new NonBuiltProcessException();
         }
 
         public IList<IBusinessValidation<T>> ValidationFixture { get; set; }

@@ -1,4 +1,5 @@
 ﻿using Nubank.Contract;
+using Nubank.Tools.Exceptions;
 
 namespace Nubank.Persistence.Repositories
 {
@@ -15,7 +16,7 @@ namespace Nubank.Persistence.Repositories
         /// <returns></returns>
         public Account Get()
         {
-            return Account != null ? Account.Clone() : null;
+            return Account != null ? Account.Clone() : throw new NullAccountException();
         }
 
         /// <summary>

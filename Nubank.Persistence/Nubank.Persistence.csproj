@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Nubank.Contract\Nubank.Contract.csproj" />
+    <ProjectReference Include="..\Nubank.Tools\Nubank.Tools.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

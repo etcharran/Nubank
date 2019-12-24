@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using Nubank.Contract;
+using Nubank.Tools.Exceptions;
 using System.Linq;
 
 namespace Nubank.Authorizer.Helpers
@@ -35,7 +36,7 @@ namespace Nubank.Authorizer.Helpers
             }
             catch (System.Exception ex)
             {
-                throw new System.Exception("There is no matching Data in the Contracts. Provide supported operations.", ex);
+                throw new UnSupportedInputDataException(ex);
             }
         }
 

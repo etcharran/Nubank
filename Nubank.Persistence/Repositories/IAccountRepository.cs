@@ -20,7 +20,7 @@ namespace Nubank.Persistence.Repositories
         void Delete(Account data);
 
         /// <summary>
-        /// Retrieves the last account created if non is created, return null
+        /// Retrieves the last account created
         /// </summary>
         /// <returns></returns>
         Account Get();

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Nubank.Contract;
+using Nubank.Tools.Exceptions;
 using System;
 
 namespace Nubank.Domain.Operations
@@ -26,7 +27,7 @@ namespace Nubank.Domain.Operations
                 case Transaction.name:
                     return serviceProvider.GetService<IOperation<Transaction>>().Build(data as Transaction) as IOperation;
                 default:
-                    throw new Exception("Operation not supported");
+                    throw new UnSupportedOperationException();
             }
         }
     }
