@@ -6,7 +6,9 @@ namespace Nubank.Domain.Validation
     public class InactiveCardValidation : BusinessValidation<Transaction>
     {
         private readonly IAccountRepository accountRepository;
-        public override string ValidationName => "card-not-active";
+        public const string name = "card-not-active";
+
+        public override string ValidationName => name;
 
         public InactiveCardValidation(IAccountRepository accountRepository)
         {

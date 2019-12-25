@@ -7,7 +7,9 @@ namespace Nubank.Domain.Validation
     public class DoubledTransactionValidation : BusinessValidation<Transaction>
     {
         private readonly ITransactionRepository transactionRepository;
-        public override string ValidationName => "doubled-transaction";
+        public const string name = "doubled-transaction";
+
+        public override string ValidationName => name;
 
         public DoubledTransactionValidation(ITransactionRepository transactionRepository)
         {

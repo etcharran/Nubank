@@ -5,7 +5,7 @@ namespace Nubank.Domain.Operations
     public interface IOperationFactory
     {
         /// <summary>
-        /// Creates an operation
+        /// Creates an operation through the di
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>

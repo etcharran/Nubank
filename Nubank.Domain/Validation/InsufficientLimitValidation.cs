@@ -5,9 +5,10 @@ namespace Nubank.Domain.Validation
 {
     public class InsufficientLimitValidation : BusinessValidation<Transaction>
     {
-
         private readonly IAccountRepository accountRepository;
-        public override string ValidationName => "insufficient-limit";
+        public const string name = "insufficient-limit";
+
+        public override string ValidationName => name;
 
         public InsufficientLimitValidation(IAccountRepository accountRepository)
         {

@@ -1,12 +1,12 @@
-using Nubank.Domain.Logic;
 using Microsoft.Extensions.DependencyInjection;
-using Xunit;
 using Nubank.Contract;
+using Nubank.Domain.Logic;
+using Nubank.Domain.Validation;
+using Nubank.Tests.Persitence;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Nubank.Tests.Persitence;
 using System.Linq;
-using Nubank.Domain.Validation;
+using Xunit;
 
 namespace Nubank.Tests.Integration
 {
@@ -15,40 +15,52 @@ namespace Nubank.Tests.Integration
         private readonly IOperationLogic operationLogic;
 
         public AccountOperationTests()
-            :base()
+            : base()
         {
             operationLogic = serviceProvider.GetService<IOperationLogic>();
         }
 
         [Theory]
-        [MemberData(nameof(Data))]
-        public void CreateAccount(Account activeAccount, Account inactiveAccount)
+        [MemberData(nameof(ValidAccountData))]
+        public void CreateAccount(Account activeAccount)
         {
             var correctResponse = new AccountResponse { Account = activeAccount, Violations = new List<string>() };
             var actualResponse = operationLogic.Operate(activeAccount) as AccountResponse;
-            Assert.Equal(correctResponse,actualResponse,new AccountResponseComparer());
+            Assert.Equal(correctResponse, actualResponse, new AccountResponseComparer());
         }
 
         [Theory]
-        [MemberData(nameof(Data))]
+        [MemberData(nameof(InitializedAccountData))]
         public void InitializedAccount(Account activeAccount, Account inactiveAccount)
         {
             var correctResponse = new AccountResponse { Account = activeAccount.Clone(), Violations = new List<string>() };
             var actualResponse = operationLogic.Operate(activeAccount) as AccountResponse;
-            Assert.Equal(correctResponse,actualResponse,new AccountResponseComparer());
+            Assert.Equal(correctResponse, actualResponse, new AccountResponseComparer());
 
             var inactiveCreate = operationLogic.Operate(inactiveAccount) as AccountResponse;
-            var incorrectResponse = new AccountResponse { Account = correctResponse.Account.Clone(), Violations = new List<string>(){"account-already-initialized"}};
+            var incorrectResponse = new AccountResponse
+            {
+                Account = correctResponse.Account.Clone(),
+                Violations = new List<string>() { InitializedAccountValidation.name }
+            };
             Assert.Equal(inactiveCreate, incorrectResponse, new AccountResponseComparer());
             Assert.NotEqual(inactiveCreate, correctResponse, new AccountResponseComparer());
         }
 
-        public static IEnumerable<object[]> Data()
+        public static IEnumerable<object[]> InitializedAccountData()
         {
             yield return new object[]
             {
                 new Account { ActiveCard = true, AvailableLimit = 100 },
                 new Account { ActiveCard = false, AvailableLimit = 100 }
+            };
+        }
+
+        public static IEnumerable<object[]> ValidAccountData()
+        {
+            yield return new object[]
+            {
+                new Account { ActiveCard = true, AvailableLimit = 100 }
             };
         }
     }

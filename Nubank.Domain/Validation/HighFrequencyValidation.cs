@@ -7,7 +7,8 @@ namespace Nubank.Domain.Validation
     public class HighFrequencyValidation : BusinessValidation<Transaction>
     {
         private readonly ITransactionRepository transactionRepository;
-        public override string ValidationName => "high-frequency-small-interval";
+        public const string name = "high-frequency-small-interval";
+        public override string ValidationName => name;
 
         public HighFrequencyValidation(ITransactionRepository transactionRepository)
         {

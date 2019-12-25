@@ -6,7 +6,9 @@ namespace Nubank.Domain.Validation
     public class InitializedAccountValidation : BusinessValidation<Account>
     {
         private readonly IAccountRepository accountRepository;
-        public override string ValidationName => "account-already-initialized";
+        public const string name = "account-already-initialized";
+
+        public override string ValidationName => name;
 
         public InitializedAccountValidation(IAccountRepository accountRepository)
         {
