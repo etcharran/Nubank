@@ -25,15 +25,36 @@ namespace Nubank.Tests.Integration
         }
 
         [Theory]
-        [MemberData(nameof(Data))]
+        [MemberData(nameof(ValidTransactionData))]
         public void ValidTransaction(Account account, Transaction transaction)
         {
             var correctAccount = account.Clone();
             correctAccount.AvailableLimit -= transaction.Amount;
-            var correctResponse = new AccountResponse { Account = correctAccount.Clone(), Violations = new List<string>() };
+            var correctResponse = new AccountResponse { Account = correctAccount, Violations = new List<string>() };
             operationLogic.Operate(account);
             var actualResponse = operationLogic.Operate(transaction) as AccountResponse;
             Assert.Equal(correctResponse,actualResponse,new AccountResponseComparer());
+        }
+
+        [Theory]
+        [MemberData(nameof(LimitAmountData))]
+        public void LimitAmountTransaction(Account account, Transaction first, Transaction second)
+        {
+            var correctAccount = account.Clone();
+
+            var correctResponse = new AccountResponse { 
+                Account = correctAccount, 
+                Violations = new List<string>() 
+            };
+
+            operationLogic.Operate(account);
+            var actualResponse = operationLogic.Operate(first) as AccountResponse;
+            Assert.Equal(correctResponse,actualResponse,new AccountResponseComparer());
+
+            correctResponse.Violations.Add("insufficient-limit");
+            actualResponse = operationLogic.Operate(second) as AccountResponse;
+            Assert.Equal(correctResponse,actualResponse,new AccountResponseComparer());
+
         }
 
         public static IEnumerable<object[]> OnlyTransaction()
@@ -44,12 +65,22 @@ namespace Nubank.Tests.Integration
             };
         }
 
-         public static IEnumerable<object[]> Data()
+        public static IEnumerable<object[]> ValidTransactionData()
         {
             yield return new object[]
             {
                 new Account { ActiveCard = true, AvailableLimit = 100 },
                 new Transaction { Merchant = "First", Amount = 100, Time = DateTime.Now  }
+            };
+        }
+
+        public static IEnumerable<object[]> LimitAmountData()
+        {
+            yield return new object[]
+            {
+                new Account { ActiveCard = true, AvailableLimit = 30 },
+                new Transaction { Merchant = "First", Amount = 20, Time = DateTime.Now  }
+                new Transaction { Merchant = "Second", Amount = 15, Time = DateTime.Now  }
             };
         }
     }

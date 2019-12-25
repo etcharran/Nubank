@@ -1,4 +1,0 @@
-namespace Nubank.Tests.Integration
-{
-    
-}
