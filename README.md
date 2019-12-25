@@ -107,12 +107,21 @@ Once all validations have passed, then the operation executes.
 
 This layer core logic is located in the Operation class.
 
+To extend Validations implement the BusinessValidation abstract class and add the new Validation to the Operation Fixture.
+
+For example a necessary validation to the transaction operation would be an ExistantAccountValidation.
+
+Steps:
+- Create the class
+- Inherit the BusinessValidation
+- Declare the ExistantAccountValidation in the TransactionOperation.InitializeFixture method
+
 ## Persistence
 The persistence layer has two repositorios one for each known Operation.
 - AccountRepository
 - TransactionRepository
 
-This implementations handle the memory persistence. 
+This implementations handles the memory persistence. 
 
 
 # Notes
