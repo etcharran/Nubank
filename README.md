@@ -126,6 +126,6 @@ This implementations handles the memory persistence.
 
 # Notes
 
-The tests current implementation lacks the unit test of the domain layer but it should be developed with the DI pattern in mind. 
+Because of some eventualitys with my timings, the current tests implementation lacks the unit test of the domain layer but it should be developed with the DI pattern in mind. 
 
 My approach would be to use the Moq library to help the development of the necessary tests. 
