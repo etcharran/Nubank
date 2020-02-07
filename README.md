@@ -72,7 +72,7 @@ Once it's published you can run the program
 ./Nubank.Authorizer < operations
 ```
 
-Assuming operations has the correct format:
+Assuming operations have the correct format:
 ```
 cat operations
 { "account": { "activeCard": true, "availableLimit": 100 } }
