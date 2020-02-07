@@ -117,11 +117,11 @@ Steps:
 - Declare the ExistantAccountValidation in the TransactionOperation.InitializeFixture method
 
 ## Persistence
-The persistence layer has two repositorios one for each known Operation.
+The persistence layer has two repositories one for each known Operation.
 - AccountRepository
 - TransactionRepository
 
-This implementations handles the memory persistence. 
+This implementations handle the memory persistence. 
 
 
 # Notes
