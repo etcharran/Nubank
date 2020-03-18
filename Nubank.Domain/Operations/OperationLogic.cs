@@ -17,12 +17,7 @@ namespace Nubank.Domain.Operations
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public IResponse<Account> Process<T>(T data) where T : IData
-        {
-            IOperation operation = Create(data);
-            operation.Build(data);
-            return operation.Process();
-        }
+        public IResponse<Account> Process<T>(T data) where T : IData => Create(data).Build(data).Process();
 
         public IOperation Create<T>(T data)
         {

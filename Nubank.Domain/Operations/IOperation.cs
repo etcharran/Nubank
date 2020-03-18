@@ -7,7 +7,7 @@ namespace Nubank.Domain.Operations
 
     public interface IOperation
     {
-        IOperation<IData> Build(IData data);
+        IOperation Build(IData data);
         IResponse<Account> Process();
     }
 }

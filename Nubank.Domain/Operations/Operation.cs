@@ -30,9 +30,9 @@ namespace Nubank.Domain.Operations
             return this;
         }
 
-        public IOperation<IData> Build(IData data)
+        public IOperation Build(IData data)
         {
-            return Build(data as T) as IOperation<IData>;
+            return Build(data as T) as IOperation;
         }
 
         public IResponse<Account> Process()
