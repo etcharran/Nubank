@@ -95,8 +95,7 @@ This projects handles the input and output of the program, the serialization and
 To gain all of the net core di power the program raises a host which handles the injection and execution.
 
 ## Domain
-The domain has 3 different core structures:
-- Logic
+The domain has 2 different core structures:
 - Operation 
 - BusinessValidations
 
