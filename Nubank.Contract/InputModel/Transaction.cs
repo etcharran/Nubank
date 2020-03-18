@@ -16,5 +16,8 @@ namespace Nubank.Contract
         {
             return new Transaction { Amount = Amount, Merchant = Merchant, Time = Time };
         }
+
+        public override string ToString() => $"Name: {Name}, Amount: {Amount}, Merchant: {Merchant}, Time: {Time.ToString("dd-MM-yyyy")}";
+
     }
 }

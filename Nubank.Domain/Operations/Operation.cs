@@ -1,30 +1,38 @@
-﻿using Nubank.Contract;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Nubank.Contract;
 using Nubank.Domain.Validation;
 using Nubank.Persistence.Repositories;
 using Nubank.Tools.Exceptions;
+using System;
 using System.Collections.Generic;
 
 namespace Nubank.Domain.Operations
 {
-    public abstract class Operation<T> : IOperation<T> where T : IData
+    public abstract class Operation<T> : IOperation<T> where T : Data, IData
     {
         public readonly IAccountRepository accountRepository;
+        internal readonly IServiceProvider provider;
         private bool HasBeenBuilt { get; set; }
         public T Data { get; set; }
 
-
-        public Operation(IAccountRepository accountRepository)
+        public Operation(IAccountRepository accountRepository, IServiceProvider provider)
         {
             this.accountRepository = accountRepository;
             this.ValidationFixture = new List<IBusinessValidation<T>>();
+            this.provider = provider;
+            InitializeFixture();
         }
 
         public IOperation<T> Build(T data)
         {
             Data = data;
-            InitializeFixture();
             HasBeenBuilt = true;
             return this;
+        }
+
+        public IOperation<IData> Build(IData data)
+        {
+            return Build(data as T) as IOperation<IData>;
         }
 
         public IResponse<Account> Process()
@@ -62,5 +70,11 @@ namespace Nubank.Domain.Operations
         /// Initialize Validation Fixture
         /// </summary>
         public abstract void InitializeFixture();
+
+        internal IList<IBusinessValidation<T>> AddToFixture<K>() where K : IBusinessValidation<T>
+        {
+            ValidationFixture.Add(provider.GetService<K>());
+            return ValidationFixture;
+        }
     }
 }

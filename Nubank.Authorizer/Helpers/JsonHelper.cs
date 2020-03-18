@@ -16,7 +16,7 @@ namespace Nubank.Authorizer.Helpers
         /// </summary>
         /// <param name="document"></param>
         /// <returns></returns>
-        public static IData ToContract(string document)
+        public static Data ToContract(string document)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace Nubank.Authorizer.Helpers
                 };
 
                 // Convert the json document to the DataType retrieved
-                return JsonConvert.DeserializeObject(jObject.GetValue(jObject.First.Path).ToString(), dataType, settings) as IData;
+                return JsonConvert.DeserializeObject(jObject.GetValue(jObject.First.Path).ToString(), dataType, settings) as Data;
             }
             catch (System.Exception ex)
             {

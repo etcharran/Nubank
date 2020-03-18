@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Nubank.Authorizer.Helpers;
 using Nubank.Contract;
-using Nubank.Domain.Logic;
+using Nubank.Domain.Operations;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -46,24 +46,24 @@ namespace Nubank.Authorizer
         {
             return (task) =>
             {
-                try
+                string line;
+                while (!string.IsNullOrEmpty(line = Console.ReadLine()))
                 {
-                    string line;
-                    while (!string.IsNullOrEmpty(line = Console.ReadLine()))
+                    try
                     {
-                        IData data = JsonHelper.ToContract(line);
+                        Data data = JsonHelper.ToContract(line);
 
                         // Each line is an operation, hence we operate
-                        var responseOperation = operationLogic.Operate(data);
+                        var responseOperation = operationLogic.Process(data);
 
                         // Log response as string
                         logger.LogInformation(JsonHelper.Serialize(responseOperation));
 
                     }
-                }
-                catch (System.Exception ex)
-                {
-                    logger.LogError(ex, ex.Message);
+                    catch (System.Exception ex)
+                    {
+                        logger.LogError(ex, ex.Message);
+                    }
                 }
 
             };

@@ -3,11 +3,11 @@ namespace Nubank.Domain.Operations
 {
     public interface IOperation<T> : IOperation where T : IData
     {
-        IOperation<T> Build(T data);
     }
 
     public interface IOperation
     {
+        IOperation<IData> Build(IData data);
         IResponse<Account> Process();
     }
 }

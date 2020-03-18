@@ -2,13 +2,13 @@
 
 namespace Nubank.Domain.Operations
 {
-    public interface IOperationFactory
+    public interface IOperationLogic
     {
         /// <summary>
-        /// Creates an operation through the di
+        /// Executes the operation matching the data type 
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        IOperation CreateOperation(IData data);
+        IResponse<Account> Process<T>(T data) where T : IData;
     }
 }

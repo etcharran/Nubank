@@ -13,5 +13,7 @@ namespace Nubank.Contract
         {
             return new Account { ActiveCard = ActiveCard, AvailableLimit = AvailableLimit };
         }
+
+        public override string ToString() => $"ActiveCard: {ActiveCard}, AvailableLimit: {AvailableLimit}";
     }
 }

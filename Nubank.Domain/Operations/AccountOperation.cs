@@ -1,19 +1,20 @@
 using Nubank.Contract;
 using Nubank.Domain.Validation;
 using Nubank.Persistence.Repositories;
+using System;
 
 namespace Nubank.Domain.Operations
 {
     public class AccountOperation : Operation<Account>
     {
-        public AccountOperation(IAccountRepository accountRepository)
-            : base(accountRepository)
+        public AccountOperation(IAccountRepository accountRepository, IServiceProvider provider)
+            : base(accountRepository, provider)
         {
         }
 
         public override void InitializeFixture()
         {
-            ValidationFixture.Add(new InitializedAccountValidation(accountRepository));
+            AddToFixture<InitializedAccountValidation>();
         }
 
         public override void Execute() => accountRepository.Create(Data);

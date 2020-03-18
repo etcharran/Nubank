@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Nubank.Contract;
-using Nubank.Domain.Logic;
+using Nubank.Domain.Operations;
 using Nubank.Domain.Validation;
 using Nubank.Tests.Persitence;
 using System.Collections.Generic;
@@ -25,7 +25,7 @@ namespace Nubank.Tests.Integration
         public void CreateAccount(Account activeAccount)
         {
             var correctResponse = new AccountResponse { Account = activeAccount, Violations = new List<string>() };
-            var actualResponse = operationLogic.Operate(activeAccount) as AccountResponse;
+            var actualResponse = operationLogic.Process(activeAccount) as AccountResponse;
             Assert.Equal(correctResponse, actualResponse, new AccountResponseComparer());
         }
 
@@ -34,10 +34,10 @@ namespace Nubank.Tests.Integration
         public void InitializedAccount(Account activeAccount, Account inactiveAccount)
         {
             var correctResponse = new AccountResponse { Account = activeAccount.Clone(), Violations = new List<string>() };
-            var actualResponse = operationLogic.Operate(activeAccount) as AccountResponse;
+            var actualResponse = operationLogic.Process(activeAccount) as AccountResponse;
             Assert.Equal(correctResponse, actualResponse, new AccountResponseComparer());
 
-            var inactiveCreate = operationLogic.Operate(inactiveAccount) as AccountResponse;
+            var inactiveCreate = operationLogic.Process(inactiveAccount) as AccountResponse;
             var incorrectResponse = new AccountResponse
             {
                 Account = correctResponse.Account.Clone(),

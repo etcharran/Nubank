@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Nubank.Contract;
-using Nubank.Domain.Logic;
+using Nubank.Domain.Operations;
 using Nubank.Domain.Validation;
 using Nubank.Tools.Exceptions;
 using System;
@@ -22,7 +22,7 @@ namespace Nubank.Tests.Integration
         [MemberData(nameof(OnlyTransaction))]
         public void NotCreatedAccount(Transaction transaction)
         {
-            Assert.Throws<NullAccountException>(() => operationLogic.Operate(transaction));
+            Assert.Throws<NullAccountException>(() => operationLogic.Process(transaction));
         }
 
         [Theory]
@@ -32,8 +32,8 @@ namespace Nubank.Tests.Integration
             var correctAccount = account.Clone();
             correctAccount.AvailableLimit -= transaction.Amount;
             var correctResponse = new AccountResponse { Account = correctAccount, Violations = new List<string>() };
-            operationLogic.Operate(account);
-            var actualResponse = operationLogic.Operate(transaction) as AccountResponse;
+            operationLogic.Process(account);
+            var actualResponse = operationLogic.Process(transaction) as AccountResponse;
             Assert.Equal(correctResponse, actualResponse, new AccountResponseComparer());
         }
 
@@ -49,12 +49,12 @@ namespace Nubank.Tests.Integration
                 Violations = new List<string>()
             };
 
-            operationLogic.Operate(account);
-            var actualResponse = operationLogic.Operate(first) as AccountResponse;
+            operationLogic.Process(account);
+            var actualResponse = operationLogic.Process(first) as AccountResponse;
             Assert.Equal(correctResponse, actualResponse, new AccountResponseComparer());
 
             correctResponse.Violations.Add(InsufficientLimitValidation.name);
-            actualResponse = operationLogic.Operate(second) as AccountResponse;
+            actualResponse = operationLogic.Process(second) as AccountResponse;
             Assert.Equal(correctResponse, actualResponse, new AccountResponseComparer());
 
         }
@@ -70,8 +70,8 @@ namespace Nubank.Tests.Integration
                 Violations = new List<string>() { InactiveCardValidation.name }
             };
 
-            operationLogic.Operate(account);
-            var actualResponse = operationLogic.Operate(transaction) as AccountResponse;
+            operationLogic.Process(account);
+            var actualResponse = operationLogic.Process(transaction) as AccountResponse;
             Assert.Equal(correctResponse, actualResponse, new AccountResponseComparer());
         }
 
@@ -87,23 +87,23 @@ namespace Nubank.Tests.Integration
                 Violations = new List<string>()
             };
 
-            operationLogic.Operate(account);
-            var actualResponse = operationLogic.Operate(first) as AccountResponse;
+            operationLogic.Process(account);
+            var actualResponse = operationLogic.Process(first) as AccountResponse;
             Assert.Equal(correctResponse, actualResponse, new AccountResponseComparer());
 
             correctAccount.AvailableLimit -= second.Amount;
-            operationLogic.Operate(account);
-            actualResponse = operationLogic.Operate(second) as AccountResponse;
+            operationLogic.Process(account);
+            actualResponse = operationLogic.Process(second) as AccountResponse;
             Assert.Equal(correctResponse, actualResponse, new AccountResponseComparer());
 
             correctAccount.AvailableLimit -= third.Amount;
-            operationLogic.Operate(account);
-            actualResponse = operationLogic.Operate(third) as AccountResponse;
+            operationLogic.Process(account);
+            actualResponse = operationLogic.Process(third) as AccountResponse;
             Assert.Equal(correctResponse, actualResponse, new AccountResponseComparer());
 
             correctResponse.Violations.Add(DoubledTransactionValidation.name);
-            operationLogic.Operate(account);
-            actualResponse = operationLogic.Operate(fourth) as AccountResponse;
+            operationLogic.Process(account);
+            actualResponse = operationLogic.Process(fourth) as AccountResponse;
             Assert.Equal(correctResponse, actualResponse, new AccountResponseComparer());
         }
 
@@ -119,23 +119,23 @@ namespace Nubank.Tests.Integration
                 Violations = new List<string>()
             };
 
-            operationLogic.Operate(account);
-            var actualResponse = operationLogic.Operate(first) as AccountResponse;
+            operationLogic.Process(account);
+            var actualResponse = operationLogic.Process(first) as AccountResponse;
             Assert.Equal(correctResponse, actualResponse, new AccountResponseComparer());
 
             correctAccount.AvailableLimit -= second.Amount;
-            operationLogic.Operate(account);
-            actualResponse = operationLogic.Operate(second) as AccountResponse;
+            operationLogic.Process(account);
+            actualResponse = operationLogic.Process(second) as AccountResponse;
             Assert.Equal(correctResponse, actualResponse, new AccountResponseComparer());
 
             correctAccount.AvailableLimit -= third.Amount;
-            operationLogic.Operate(account);
-            actualResponse = operationLogic.Operate(third) as AccountResponse;
+            operationLogic.Process(account);
+            actualResponse = operationLogic.Process(third) as AccountResponse;
             Assert.Equal(correctResponse, actualResponse, new AccountResponseComparer());
 
             correctResponse.Violations.Add(HighFrequencyValidation.name);
-            operationLogic.Operate(account);
-            actualResponse = operationLogic.Operate(fourth) as AccountResponse;
+            operationLogic.Process(account);
+            actualResponse = operationLogic.Process(fourth) as AccountResponse;
             Assert.Equal(correctResponse, actualResponse, new AccountResponseComparer());
         }
 
