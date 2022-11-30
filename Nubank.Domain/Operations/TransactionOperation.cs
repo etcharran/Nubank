@@ -15,11 +15,11 @@ namespace Nubank.Domain.Operations
         }
 
 
-        public override void Execute()
+        public override void Execute(Transaction data)
         {
-            transactionRepository.Create(Data);
+            transactionRepository.Create(data);
             var account = accountRepository.Get();
-            account.AvailableLimit -= Data.Amount;
+            account.AvailableLimit -= data.Amount;
             accountRepository.Update(account);
         }
 

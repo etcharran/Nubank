@@ -1,4 +1,5 @@
-﻿using Nubank.Contract;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Nubank.Contract;
 using Nubank.Tools.Exceptions;
 using System;
 
@@ -17,14 +18,14 @@ namespace Nubank.Domain.Operations
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public IResponse<Account> Process<T>(T data) where T : IData => Create(data).Build(data).Process();
-
-        public IOperation Create<T>(T data)
+        public IResponse<Account> Process<T>(T data)
+            where T : IData
         {
-            var operation = provider.GetService(typeof(IOperation<>).MakeGenericType(data.GetType()));
+            var operation = provider.GetService<IOperation<T>>();
             if (operation == null)
                 throw new UnSupportedOperationException();
-            return operation as IOperation;
+
+            return operation.Process(data);
         }
     }
 }

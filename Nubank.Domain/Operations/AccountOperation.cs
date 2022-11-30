@@ -17,6 +17,6 @@ namespace Nubank.Domain.Operations
             AddToFixture<InitializedAccountValidation>();
         }
 
-        public override void Execute() => accountRepository.Create(Data);
+        public override void Execute(Account data) => accountRepository.Create(data);
     }
 }

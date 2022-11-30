@@ -1,13 +1,8 @@
 using Nubank.Contract;
 namespace Nubank.Domain.Operations
 {
-    public interface IOperation<T> : IOperation where T : IData
+    public interface IOperation<T> where T : IData
     {
-    }
-
-    public interface IOperation
-    {
-        IOperation Build(IData data);
-        IResponse<Account> Process();
+        IResponse<Account> Process(T data);
     }
 }
